@@ -10,8 +10,8 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
 
-        String departureCity = "Vladivostok";
-        String arrivalCity = "Tel-Aviv";
+        String departureCity = "Владивосток";
+        String arrivalCity = "Тель-Авив";
 
         System.out.printf("Departure city: %s, Arrival city: %s" + System.lineSeparator() + "%n",
                 departureCity, arrivalCity);

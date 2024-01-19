@@ -8,13 +8,23 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
-@AllArgsConstructor
 public class TicketService {
 
-    private List<Ticket> tickets;
+    private final List<Ticket> tickets;
 
     public TicketService(TicketRepository ticketRepository) {
         this(ticketRepository.getTickets());
+    }
+
+    public TicketService(List<Ticket> ticketList) {
+        List<Ticket> VVOTLVTickets = new ArrayList<>();
+        for (Ticket ticket :
+                ticketList) {
+            if (ticket.getOrigin().equals("VVO") && ticket.getDestination().equals("TLV")) {
+                VVOTLVTickets.add(ticket);
+            }
+        }
+        this.tickets = VVOTLVTickets;
     }
 
     public Duration getMinFlightTime(){
