@@ -2,11 +2,9 @@ import lombok.AllArgsConstructor;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Collectors;
 
 public class TicketService {
 
@@ -63,14 +61,17 @@ public class TicketService {
     }
 
     public int getMedianPrice(){
+        List<Ticket> ticketList = tickets.stream()
+                .sorted((Comparator.comparingInt(Ticket::getPrice)))
+                .collect(Collectors.toList());
         int result = 0;
 
-        if (tickets.size() % 2 == 0){
-             result += tickets.get(tickets.size()/2).getPrice();
-             result += tickets.get(tickets.size()/2 + 1).getPrice();
+        if (ticketList.size() % 2 == 0){
+             result += ticketList.get(ticketList.size()/2).getPrice();
+             result += ticketList.get(ticketList.size()/2 - 1).getPrice();
              return result / 2;
         } else {
-            result += tickets.get(tickets.size()/2).getPrice();
+            result += ticketList.get(ticketList.size()/2).getPrice();
             return result;
         }
 
